@@ -4,7 +4,8 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-const { corsAccess } = require('./middlewares/corsAccess');
+const cors = require('cors');
+// const { corsAccess } = require('./middlewares/corsAccess');
 const limiterSettings = require('./utils/limiterSettings');
 const routesUsers = require('./routes/users');
 const routesCards = require('./routes/cards');
@@ -15,8 +16,20 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000 } = process.env;
 const app = express();
 
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3001',
+      'https://endjoys.project.nomoredomains.rocks',
+      'http://endjoys.project.nomoredomains.rocks',
+    ],
+    credentials: true,
+    maxAge: 30,
+  }),
+);
+
 const limiter = rateLimit(limiterSettings);
-app.use(corsAccess);
+// app.use(corsAccess);
 
 app.use(limiter);
 app.use(helmet());

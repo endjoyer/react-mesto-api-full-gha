@@ -1,3 +1,4 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -134,15 +135,23 @@ module.exports.login = (req, res, next) => {
           return next(new UnauthorizedError('Incorrect email or password'));
         }
         // авто тесты не пропускаю jwt без файла .env
-        const token = jwt.sign({ _id: user._id }, secretKey, {
-          expiresIn: '7d',
-        });
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : secretKey,
+          { expiresIn: '7d' },
+        );
         res.cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
           sameSite: true,
         });
-        return res.send({ token });
+        return res.send({
+          _id: user._id,
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+          email: user.email,
+        }); // возможно ошибка и должно быть {token}
       });
     })
     .catch(next);

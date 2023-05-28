@@ -12,7 +12,8 @@ const { NotFoundError } = require('./errors/index');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, ADDRESS_DB = 'mongodb://127.0.0.1:27017/mestodb' } =
+  process.env;
 const app = express();
 
 const limiter = rateLimit(limiterSettings);
@@ -26,7 +27,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/mestodb')
+  .connect(ADDRESS_DB)
   .then(() => {
     console.log('Database connection successful');
   })

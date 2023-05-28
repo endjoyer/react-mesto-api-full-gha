@@ -10,7 +10,8 @@ const routesCards = require('./routes/cards');
 const { NotFoundError } = require('./errors/index');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { corsAccess } = require('./middlewares/corsAccess');
+// const { corsAccess } = require('./middlewares/corsAccess');
+const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -19,6 +20,7 @@ const limiter = rateLimit(limiterSettings);
 
 app.use(limiter);
 app.use(helmet());
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,8 +37,8 @@ mongoose
 
 app.use(requestLogger);
 
-app.use(routesUsers, corsAccess);
-app.use(routesCards, corsAccess);
+app.use(routesUsers);
+app.use(routesCards);
 
 app.use(errorLogger);
 

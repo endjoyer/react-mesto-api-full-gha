@@ -21,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://endjoyer.github.io/react-mesto-auth/",
+  "homepage": "http://endjoys.project.nomoredomains.rocks/",
   "eslintConfig": {
     "extends": [
       "react-app",

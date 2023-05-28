@@ -214,7 +214,7 @@ function App() {
         <Header userData={userData} />
         <Routes>
           <Route
-            path="/react-mesto-auth"
+            path="/"
             element={
               loggedIn ? (
                 <Navigate to="/" replace />

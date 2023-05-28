@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
@@ -18,6 +19,18 @@ const app = express();
 
 const limiter = rateLimit(limiterSettings);
 // app.use(corsAccess);
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'http://endjoys.project.nomoredomains.rocks',
+      'https://endjoys.project.nomoredomains.rocks',
+    ],
+    credentials: true,
+    maxAge: 30,
+  }),
+);
 
 app.use(limiter);
 app.use(helmet());

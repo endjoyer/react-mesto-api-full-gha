@@ -93,6 +93,8 @@ function App() {
   useEffect(() => {
     Promise.all([api.getInitialUser(), api.getInitialCards()])
       .then(([userData, cardData]) => {
+        console.log(userData);
+
         setCurrentUser(userData);
         setCards(cardData);
       })
@@ -152,7 +154,7 @@ function App() {
     auth
       .authorize(password, email)
       .then((data) => {
-        if (data.token) {
+        if (data._id) {
           handleLogin();
           navigate("/", { replace: true });
         }
@@ -184,8 +186,8 @@ function App() {
   }, []);
 
   const handleTokenCheck = () => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
+    if (localStorage.getItem("userId")) {
+      const jwt = localStorage.getItem("userId");
       auth
         .checkToken(jwt)
         .then((res) => {

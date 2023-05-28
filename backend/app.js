@@ -20,6 +20,7 @@ const app = express();
 
 const limiter = rateLimit(limiterSettings);
 // app.use(corsAccess);
+app.options('*', cors());
 app.use(
   cors({
     origin: [

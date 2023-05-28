@@ -43,8 +43,8 @@ app.use((req, res, next) => {
     [
       'http://localhost:3000',
       'https://localhost:3000',
-      'http://amo.edu.nomoredomains.icu',
-      'https://amo.edu.nomoredomains.icu',
+      'http://endjoys.project.nomoredomains.rocks',
+      'https://endjoys.project.nomoredomains.rocks',
     ].includes(origin)
   ) {
     res.header('Access-Control-Allow-Origin', origin);

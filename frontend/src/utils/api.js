@@ -89,7 +89,7 @@ class Api {
 export const api = new Api({
   serverUrl: "https://api.endjoys.project.nomoredomains.rocks",
   headers: {
-    authorization: "6a189007-b75f-4743-b5a0-635bc162974c",
+    // authorization: "6a189007-b75f-4743-b5a0-635bc162974c",
     "Content-Type": "application/json",
   },
 });

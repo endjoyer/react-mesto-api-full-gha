@@ -20,7 +20,6 @@ const app = express();
 
 const limiter = rateLimit(limiterSettings);
 // app.use(corsAccess);
-app.options('*', cors());
 app.use(
   cors({
     origin: [
@@ -52,31 +51,31 @@ mongoose
 
 app.use(requestLogger);
 
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  if (
-    [
-      'http://localhost:3000',
-      'https://localhost:3000',
-      'http://endjoys.project.nomoredomains.rocks',
-      'https://endjoys.project.nomoredomains.rocks',
-    ].includes(origin)
-  ) {
-    res.header('Access-Control-Allow-Origin', origin);
-    if (method === 'OPTIONS') {
-      res.header(
-        'Access-Control-Allow-Methods',
-        'GET,HEAD,PUT,PATCH,POST,DELETE',
-      );
-      const requestHeaders = req.headers['access-control-request-headers'];
-      res.header('Access-Control-Allow-Headers', requestHeaders);
-      return res.end();
-    }
-  }
+// app.use((req, res, next) => {
+//   const { origin } = req.headers;
+//   const { method } = req;
+//   if (
+//     [
+//       'http://localhost:3000',
+//       'https://localhost:3000',
+//       'http://endjoys.project.nomoredomains.rocks',
+//       'https://endjoys.project.nomoredomains.rocks',
+//     ].includes(origin)
+//   ) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//     if (method === 'OPTIONS') {
+//       res.header(
+//         'Access-Control-Allow-Methods',
+//         'GET,HEAD,PUT,PATCH,POST,DELETE',
+//       );
+//       const requestHeaders = req.headers['access-control-request-headers'];
+//       res.header('Access-Control-Allow-Headers', requestHeaders);
+//       return res.end();
+//     }
+//   }
 
-  return next();
-});
+//   return next();
+// });
 
 app.use(routesUsers);
 app.use(routesCards);

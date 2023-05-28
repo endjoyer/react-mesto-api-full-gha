@@ -4,7 +4,6 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 // const { corsAccess } = require('./middlewares/corsAccess');
 const limiterSettings = require('./utils/limiterSettings');
 const routesUsers = require('./routes/users');
@@ -15,18 +14,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-
-app.use(
-  cors({
-    origin: [
-      'http://localhost:3000',
-      'https://endjoys.project.nomoredomains.rocks',
-      'http://endjoys.project.nomoredomains.rocks',
-    ],
-    credentials: true,
-    maxAge: 30,
-  }),
-);
 
 const limiter = rateLimit(limiterSettings);
 // app.use(corsAccess);
@@ -48,6 +35,32 @@ mongoose
   });
 
 app.use(requestLogger);
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  if (
+    [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'http://amo.edu.nomoredomains.icu',
+      'https://amo.edu.nomoredomains.icu',
+    ].includes(origin)
+  ) {
+    res.header('Access-Control-Allow-Origin', origin);
+    if (method === 'OPTIONS') {
+      res.header(
+        'Access-Control-Allow-Methods',
+        'GET,HEAD,PUT,PATCH,POST,DELETE',
+      );
+      const requestHeaders = req.headers['access-control-request-headers'];
+      res.header('Access-Control-Allow-Headers', requestHeaders);
+      return res.end();
+    }
+  }
+
+  return next();
+});
 
 app.use(routesUsers);
 app.use(routesCards);

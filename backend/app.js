@@ -1,12 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-const { corsAccess } = require('./middlewares/corsAccess');
+// const { corsAccess } = require('./middlewares/corsAccess');
 const limiterSettings = require('./utils/limiterSettings');
 const routesUsers = require('./routes/users');
 const routesCards = require('./routes/cards');
@@ -38,8 +37,8 @@ mongoose
 
 app.use(requestLogger);
 
-app.use(routesUsers, corsAccess);
-app.use(routesCards, corsAccess);
+app.use(routesUsers);
+app.use(routesCards);
 
 app.use(errorLogger);
 

@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.endjoys.project.nomoredomains.rocks";
+export const BASE_URL = "http://api.endjoys.project.nomoredomains.rocks";
 
 function requestResult(res) {
   if (res.ok) {

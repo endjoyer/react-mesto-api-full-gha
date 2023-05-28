@@ -18,8 +18,6 @@ const { PORT = 3000, ADDRESS_DB = 'mongodb://127.0.0.1:27017/mestodb' } =
   process.env;
 const app = express();
 
-const limiter = rateLimit(limiterSettings);
-// app.use(corsAccess);
 app.use(
   cors({
     origin: [
@@ -32,6 +30,9 @@ app.use(
     maxAge: 30,
   }),
 );
+
+const limiter = rateLimit(limiterSettings);
+// app.use(corsAccess);
 
 app.use(limiter);
 app.use(helmet());

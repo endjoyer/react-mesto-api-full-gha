@@ -4,6 +4,10 @@ class Api {
     this._headers = data.headers;
   }
 
+  // setAuthorization(token) {
+  //   this._headers["authorization"] = `Bearer ${token}`;
+  // }
+
   _requestResult(res) {
     if (res.ok) {
       return res.json();
@@ -84,7 +88,7 @@ class Api {
 export const api = new Api({
   serverUrl: "https://api.endjoys.project.nomoredomains.rocks",
   headers: {
-    Authorization: `Bearer ${token}`,
+    authorization: "",
     "Content-Type": "application/json",
   },
 });

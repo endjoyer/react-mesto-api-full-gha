@@ -14,7 +14,7 @@ const {
 } = require('../controllers/cards');
 const { validateAuth } = require('../middlewares/validateAuth');
 
-router.get('/cards', getCards);
+router.get('/cards', validateAuth, getCards);
 
 router.post('/cards', validateAuth, validateCreateCard, createCard);
 

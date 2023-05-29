@@ -87,7 +87,7 @@ class Api {
 }
 
 export const api = new Api({
-  serverUrl: "https:endjoys.project.nomoredomains.rocks",
+  serverUrl: "https:api.endjoys.project.nomoredomains.rocks",
   headers: {
     authorization: "",
     "Content-Type": "application/json",

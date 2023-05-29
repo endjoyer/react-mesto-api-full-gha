@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import {
   useLocation,
@@ -9,6 +8,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import * as auth from "../utils/auth.js";
+import { api } from "../utils/api.js";
 import ProtectedRouteElement from "./ProtectedRoute.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
@@ -101,7 +101,7 @@ function App() {
               email: res.data.email,
             };
             setLoggedIn(true);
-            setUserData(userData);
+            setUserData(userData); // возможно просто res.email
             navigate("/", { replace: true });
           }
         })
@@ -120,7 +120,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-  }, []);
+  }, [navigate]);
 
   function handleUpdateUser(data) {
     setIsLoading(true);
@@ -175,7 +175,7 @@ function App() {
       .then((data) => {
         if (data._id) {
           handleLogin();
-          navigate("/", { replace: true });
+          navigate("/" /*, { replace: true }*/);
         }
       })
       .catch((err) => {

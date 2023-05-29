@@ -23,6 +23,7 @@ class Api {
     const res = await fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
     });
+    console.log(res);
     return this._requestResult(res);
   }
 

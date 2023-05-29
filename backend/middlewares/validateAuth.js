@@ -10,7 +10,7 @@ module.exports.validateAuth = (req, res, next) => {
   try {
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : secretKey,
+      NODE_ENV === 'production' ? JWT_SECRET : 'secretKey',
     );
   } catch (err) {
     return next(new UnauthorizedError('Authorization required'));

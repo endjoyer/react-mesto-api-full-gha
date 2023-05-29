@@ -23,6 +23,7 @@ class Api {
     const res = await fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
     });
+    console.log(res);
     return this._requestResult(res);
   }
 
@@ -72,13 +73,7 @@ class Api {
   async changeLikeCardStatus(cardId, isLiked) {
     if (isLiked) {
       const res = await fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-        method: "PUT",
-        headers: this._headers,
-      });
-      return this._requestResult(res);
-    } else {
-      const res = await fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-        method: "DELETE",
+        method: isLiked ? "PUT" : "DELETE",
         headers: this._headers,
       });
       return this._requestResult(res);
@@ -87,9 +82,9 @@ class Api {
 }
 
 export const api = new Api({
-  serverUrl: "https:api.endjoys.project.nomoredomains.rocks/",
+  serverUrl: "https://api.endjoys.project.nomoredomains.rocks/",
   headers: {
-    authorization: "",
+    Authorization: "secretKey",
     "Content-Type": "application/json",
   },
 });

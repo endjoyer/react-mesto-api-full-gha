@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import {
   useLocation,
@@ -8,7 +9,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 import * as auth from "../utils/auth.js";
-import { api } from "../utils/api.js";
 import ProtectedRouteElement from "./ProtectedRoute.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
@@ -97,8 +97,11 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res) {
+            const userData = {
+              email: res.data.email,
+            };
             setLoggedIn(true);
-            setUserData(res.email); // возможно просто res.email
+            setUserData(userData);
             navigate("/", { replace: true });
           }
         })
@@ -117,7 +120,18 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-  }, [navigate]);
+  }, []);
+
+  // useEffect(() => {
+  //   Promise.all([api.getInitialUser(), api.getInitialCards()])
+  //     .then(([userData, cardData]) => {
+  //       setCurrentUser(userData);
+  //       setCards(cardData);
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Ошибка: ${err}`);
+  //     });
+  // }, []);
 
   function handleUpdateUser(data) {
     setIsLoading(true);
@@ -170,9 +184,9 @@ function App() {
     auth
       .authorize(password, email)
       .then((data) => {
-        if (data._id) {
+        if (data.token) {
           handleLogin();
-          navigate("/" /*, { replace: true }*/);
+          navigate("/", { replace: true });
         }
       })
       .catch((err) => {
@@ -202,8 +216,8 @@ function App() {
   // }, []);
 
   // const handleTokenCheck = () => {
-  //   if (localStorage.getItem("userId")) {
-  //     const jwt = localStorage.getItem("userId");
+  //   if (localStorage.getItem("jwt")) {
+  //     const jwt = localStorage.getItem("jwt");
   //     auth
   //       .checkToken(jwt)
   //       .then((res) => {

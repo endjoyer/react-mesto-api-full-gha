@@ -91,6 +91,8 @@ function App() {
   }
 
   useEffect(() => {
+    handleTokenCheck();
+
     Promise.all([api.getInitialUser(), api.getInitialCards()])
       .then(([userData, cardData]) => {
         console.log(userData);
@@ -181,9 +183,9 @@ function App() {
       });
   }
 
-  useEffect(() => {
-    handleTokenCheck();
-  }, []);
+  // useEffect(() => {
+  //   handleTokenCheck();
+  // }, []);
 
   const handleTokenCheck = () => {
     if (localStorage.getItem("userId")) {

@@ -97,11 +97,8 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res) {
-            const userData = {
-              email: res.data.email,
-            };
             setLoggedIn(true);
-            setUserData(userData); // возможно просто res.email
+            setUserData(res.email); // возможно просто res.email
             navigate("/", { replace: true });
           }
         })

@@ -25,12 +25,13 @@ export const authorize = async (password, email) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ password, email }),
   });
 
   return requestResult(res).then((data) => {
     if (data) {
-      localStorage.setItem("jwt", data.token);
+      localStorage.setItem("userId", data._id);
       return data;
     }
   });

@@ -25,6 +25,7 @@ export const authorize = async (password, email) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ password, email }),
   });
 
@@ -44,6 +45,7 @@ export const checkToken = async (token) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    credentials: "include",
   });
   return requestResult(res);
 };

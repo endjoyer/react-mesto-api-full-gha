@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.endjoys.project.nomoredomains.rocks";
+export const BASE_URL = "https:endjoys.project.nomoredomains.rocks"; //'https://auth.nomoreparties.co';
 
 function requestResult(res) {
   if (res.ok) {
@@ -25,26 +25,24 @@ export const authorize = async (password, email) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
     body: JSON.stringify({ password, email }),
   });
 
-  // возможно нужно изменить !
   return requestResult(res).then((data) => {
     if (data) {
-      localStorage.setItem("userId", data._id);
+      localStorage.setItem("jwt", data.token);
       return data;
     }
   });
 };
 
-export const checkToken = async (jwt) => {
+export const checkToken = async (token) => {
   const res = await fetch(`${BASE_URL}/users/me`, {
     method: "GET",
-    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
   return requestResult(res);

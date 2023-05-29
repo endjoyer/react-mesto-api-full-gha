@@ -145,11 +145,14 @@ module.exports.login = (req, res, next) => {
           sameSite: true,
         });
         return res.send({
-          _id: user._id,
-          name: user.name,
-          about: user.about,
-          avatar: user.avatar,
-          email: user.email,
+          token,
+          user: {
+            _id: user._id,
+            name: user.name,
+            about: user.about,
+            avatar: user.avatar,
+            email: user.email,
+          },
         }); // возможно ошибка и должно быть {token}
       });
     })

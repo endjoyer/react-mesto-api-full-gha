@@ -120,7 +120,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-  }, []);
+  }, [navigate]);
 
   // useEffect(() => {
   //   Promise.all([api.getInitialUser(), api.getInitialCards()])

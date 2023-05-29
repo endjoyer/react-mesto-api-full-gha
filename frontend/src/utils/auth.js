@@ -1,4 +1,4 @@
-export const BASE_URL = "https:api.endjoys.project.nomoredomains.rocks"; //'https://auth.nomoreparties.co';
+export const BASE_URL = "https://api.endjoys.project.nomoredomains.rocks";
 
 function requestResult(res) {
   if (res.ok) {
@@ -40,7 +40,7 @@ export const checkToken = async (token) => {
   const res = await fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      Accept: "application/json",
+      // Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },

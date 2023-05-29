@@ -84,7 +84,7 @@ class Api {
 export const api = new Api({
   serverUrl: "https://api.endjoys.project.nomoredomains.rocks",
   headers: {
-    authorization: "",
+    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   },
 });

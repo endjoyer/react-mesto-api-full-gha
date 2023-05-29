@@ -43,7 +43,7 @@ export const checkToken = async (token) => {
     headers: {
       // Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   });
   return requestResult(res);

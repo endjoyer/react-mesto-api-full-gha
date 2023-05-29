@@ -91,19 +91,36 @@ function App() {
   }
 
   useEffect(() => {
-    handleTokenCheck();
+    const token = localStorage.getItem("userId");
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            const userData = {
+              email: res.data.email,
+            };
+            setLoggedIn(true);
+            setUserData(userData);
+            navigate("/", { replace: true });
+          }
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
 
     Promise.all([api.getInitialUser(), api.getInitialCards()])
-      .then(([userData, cardData]) => {
-        console.log(userData);
-
+      .then((res) => {
+        console.log(res);
+        const [userData, cardData] = res;
         setCurrentUser(userData);
         setCards(cardData);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-  }, [navigate]);
+  }, []);
 
   function handleUpdateUser(data) {
     setIsLoading(true);
@@ -187,26 +204,26 @@ function App() {
   //   handleTokenCheck();
   // }, []);
 
-  const handleTokenCheck = () => {
-    if (localStorage.getItem("userId")) {
-      const jwt = localStorage.getItem("userId");
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          if (res) {
-            const userData = {
-              email: res.data.email,
-            };
-            setLoggedIn(true);
-            setUserData(userData);
-            navigate("/", { replace: true });
-          }
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        });
-    }
-  };
+  // const handleTokenCheck = () => {
+  //   if (localStorage.getItem("userId")) {
+  //     const jwt = localStorage.getItem("userId");
+  //     auth
+  //       .checkToken(jwt)
+  //       .then((res) => {
+  //         if (res) {
+  //           const userData = {
+  //             email: res.data.email,
+  //           };
+  //           setLoggedIn(true);
+  //           setUserData(userData);
+  //           navigate("/", { replace: true });
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(`Ошибка: ${err}`);
+  //       });
+  //   }
+  // };
 
   const handleLogin = () => {
     setLoggedIn(true);

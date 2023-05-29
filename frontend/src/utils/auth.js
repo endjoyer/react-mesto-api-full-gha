@@ -29,6 +29,7 @@ export const authorize = async (password, email) => {
     body: JSON.stringify({ password, email }),
   });
 
+  // возможно нужно изменить !
   return requestResult(res).then((data) => {
     if (data) {
       localStorage.setItem("userId", data._id);
@@ -37,13 +38,13 @@ export const authorize = async (password, email) => {
   });
 };
 
-export const checkToken = async (token) => {
+export const checkToken = async (jwt) => {
   const res = await fetch(`${BASE_URL}/users/me`, {
     method: "GET",
+    credentials: "include",
     headers: {
-      // Accept: "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
     },
   });
   return requestResult(res);

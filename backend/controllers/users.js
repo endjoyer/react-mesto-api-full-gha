@@ -134,7 +134,6 @@ module.exports.login = (req, res, next) => {
         if (!matched) {
           return next(new UnauthorizedError('Incorrect email or password'));
         }
-        // авто тесты не пропускаю jwt без файла .env
         const token = jwt.sign(
           { _id: user._id },
           NODE_ENV === 'production' ? JWT_SECRET : secretKey,

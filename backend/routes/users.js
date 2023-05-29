@@ -29,6 +29,12 @@ router.post('/signin', validateLogin, login);
 
 router.get('/signout', validateAuth, exit);
 
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('The server is about to crash');
+  }, 0);
+});
+
 router.patch(
   '/users/me',
   validateAuth,

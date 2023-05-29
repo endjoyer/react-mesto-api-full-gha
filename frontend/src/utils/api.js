@@ -15,7 +15,6 @@ class Api {
   async getInitialCards() {
     const res = await fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
-      credentials: "include",
     });
     return this._requestResult(res);
   }
@@ -23,7 +22,6 @@ class Api {
   async getInitialUser() {
     const res = await fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
-      credentials: "include",
     });
     return this._requestResult(res);
   }
@@ -32,7 +30,6 @@ class Api {
     const res = await fetch(`${this._baseUrl}users/me`, {
       method: "PATCH",
       headers: this._headers,
-      credentials: "include",
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -45,7 +42,6 @@ class Api {
     const res = await fetch(`${this._baseUrl}users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      credentials: "include",
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -57,7 +53,6 @@ class Api {
     const res = await fetch(`${this._baseUrl}cards`, {
       method: "POST",
       headers: this._headers,
-      credentials: "include",
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -70,7 +65,6 @@ class Api {
     const res = await fetch(`${this._baseUrl}cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-      credentials: "include",
     });
     return this._requestResult(res);
   }
@@ -80,7 +74,6 @@ class Api {
       const res = await fetch(`${this._baseUrl}cards/${cardId}/likes`, {
         method: isLiked ? "PUT" : "DELETE",
         headers: this._headers,
-        credentials: "include",
       });
       return this._requestResult(res);
     }

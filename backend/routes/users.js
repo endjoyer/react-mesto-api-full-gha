@@ -17,17 +17,17 @@ const {
 } = require('../middlewares/celebrate');
 const { validateAuth } = require('../middlewares/validateAuth');
 
-router.get('/users', validateAuth, getUsers);
+router.get('/users', getUsers);
 
-router.get('/users/me', validateAuth, getUserInfo);
+router.get('/users/me', getUserInfo);
 
-router.get('/users/:id', validateAuth, validateUserInfo, getUserInfo);
+router.get('/users/:id', validateUserInfo, getUserInfo);
 
 router.post('/signup', validateCreateUser, createUser);
 
 router.post('/signin', validateLogin, login);
 
-router.get('/signout', validateAuth, exit);
+router.get('/signout', exit);
 
 router.get('/crash-test', () => {
   setTimeout(() => {

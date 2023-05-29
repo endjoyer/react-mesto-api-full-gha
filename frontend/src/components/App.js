@@ -103,7 +103,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-  }, []);
+  }, [navigate]);
 
   function handleUpdateUser(data) {
     setIsLoading(true);

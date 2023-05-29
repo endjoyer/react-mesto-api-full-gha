@@ -1,4 +1,4 @@
-export const BASE_URL = "https:endjoys.project.nomoredomains.rocks"; //'https://auth.nomoreparties.co';
+export const BASE_URL = "https:api.endjoys.project.nomoredomains.rocks"; //'https://auth.nomoreparties.co';
 
 function requestResult(res) {
   if (res.ok) {

@@ -42,7 +42,7 @@ function App() {
   const location = useLocation();
 
   const shouldRenderFooter =
-    location.pathname !== "/sign-up" && location.pathname !== "/sign-in";
+    location.pathname !== "/signup" && location.pathname !== "/signin";
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -101,7 +101,6 @@ function App() {
             //   email: res.data.email,
             // };
             setLoggedIn(true);
-            console.log(res.email);
             setUserData(res.email);
           }
         })
@@ -111,17 +110,17 @@ function App() {
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
         });
-    }
 
-    Promise.all([api.getInitialUser(), api.getInitialCards()])
-      .then((res) => {
-        const [userData, cardData] = res;
-        setCurrentUser(userData);
-        setCards(cardData);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      Promise.all([api.getInitialUser(), api.getInitialCards()])
+        .then((res) => {
+          const [userData, cardData] = res;
+          setCurrentUser(userData);
+          setCards(cardData);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
   }, [navigate]);
 
   // useEffect(() => {
@@ -201,7 +200,7 @@ function App() {
       .register(data.password, data.email)
       .then((res) => {
         if (res.data) {
-          navigate("/sign-in", {
+          navigate("/signin", {
             replace: true,
           });
           setIsRegisterOkPopupOpened(true);
@@ -260,7 +259,7 @@ function App() {
               loggedIn ? (
                 <Navigate to="/" replace />
               ) : (
-                <Navigate to="/sign-in" replace />
+                <Navigate to="/signin" replace />
               )
             }
           />
@@ -283,11 +282,11 @@ function App() {
             }
           />
           <Route
-            path="/sign-up"
+            path="/signup"
             element={<Register onRegister={handleRegister} />}
           />
           <Route
-            path="/sign-in"
+            path="/signin"
             element={<Login onAuthorization={handleAuthorization} />}
           />
         </Routes>

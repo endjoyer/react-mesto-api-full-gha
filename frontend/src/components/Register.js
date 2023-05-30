@@ -77,7 +77,7 @@ const Register = ({ onRegister }) => {
         </label>
         <div className="auth__signup">
           <p className="signup__text">Уже зарегистрированы?</p>
-          <Link to="/sign-in" className="signup__link">
+          <Link to="/signin" className="signup__link">
             Войти
           </Link>
         </div>

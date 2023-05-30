@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 function Header({ userData, onSignOut }) {
   const { pathname } = useLocation();
-  const isSignUpPage = pathname === "/sign-up";
+  const isSignUpPage = pathname === "/signup";
   const isMainPage = pathname === "/";
 
   // const signOut = () => {
@@ -21,9 +21,9 @@ function Header({ userData, onSignOut }) {
 
           <div className="hamburger__box">
             <p className="header__user-data">{userData.email}</p>
-            <Link to={"/sign-in"} onClick={onSignOut} className="header__exit">
+            <button onClick={onSignOut} className="header__exit">
               Выйти
-            </Link>
+            </button>
           </div>
         </div>
       )}
@@ -36,7 +36,7 @@ function Header({ userData, onSignOut }) {
           />
           {!isMainPage ? (
             <Link
-              to={isSignUpPage ? "/sign-in" : "/sign-up"}
+              to={isSignUpPage ? "/signin" : "/signup"}
               className="header__link"
             >
               {isSignUpPage ? "Войти" : "Регистрация"}
@@ -44,13 +44,9 @@ function Header({ userData, onSignOut }) {
           ) : (
             <nav className="header__nav">
               <p className="header__user-data">{userData.email}</p>
-              <Link
-                to={"/sign-in"}
-                onClick={onSignOut}
-                className="header__exit"
-              >
+              <button onClick={onSignOut} className="header__exit">
                 Выйти
-              </Link>
+              </button>
             </nav>
           )}
         </div>

@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, useEffect } from "react";
 
 export function useFormValidation(initialValues = {}) {
   const [values, setValues] = useState(initialValues);
@@ -8,7 +8,7 @@ export function useFormValidation(initialValues = {}) {
 
   useEffect(() => {
     setIsValid(formRef.current.checkValidity());
-  });
+  }, []);
 
   const handleChange = (ev) => {
     const { name, value, validationMessage, form } = ev.target;

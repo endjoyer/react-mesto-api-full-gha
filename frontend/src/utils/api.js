@@ -25,7 +25,6 @@ class Api {
       headers: this._headers,
       credentials: "include",
     });
-    console.log(res);
     return this._requestResult(res);
   }
 
@@ -90,8 +89,8 @@ class Api {
 
 export const api = new Api({
   serverUrl: "https://api.endjoys.project.nomoredomains.rocks/",
+  // serverUrl: "http://localhost:3000/",
   headers: {
-    Authorization: "",
     "Content-Type": "application/json",
   },
 });

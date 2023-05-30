@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function Header({ userData }) {
   const { pathname } = useLocation();
-  const isSignUpPage = pathname === '/sign-up';
-  const isMainPage = pathname === '/';
+  const isSignUpPage = pathname === "/sign-up";
+  const isMainPage = pathname === "/";
 
   const signOut = () => {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem("userId");
   };
 
   return (
@@ -21,7 +21,7 @@ function Header({ userData }) {
 
           <div className="hamburger__box">
             <p className="header__user-data">{userData.email}</p>
-            <Link to={'/sign-in'} onClick={signOut} className="header__exit">
+            <Link to={"/sign-in"} onClick={signOut} className="header__exit">
               Выйти
             </Link>
           </div>
@@ -31,20 +31,20 @@ function Header({ userData }) {
         <div className="header__container">
           <div
             className={`header__logo ${
-              isMainPage ? '' : 'header__logo_no-main'
+              isMainPage ? "" : "header__logo_no-main"
             }`}
           />
           {!isMainPage ? (
             <Link
-              to={isSignUpPage ? '/sign-in' : '/sign-up'}
+              to={isSignUpPage ? "/sign-in" : "/sign-up"}
               className="header__link"
             >
-              {isSignUpPage ? 'Войти' : 'Регистрация'}
+              {isSignUpPage ? "Войти" : "Регистрация"}
             </Link>
           ) : (
             <nav className="header__nav">
               <p className="header__user-data">{userData.email}</p>
-              <Link to={'/sign-in'} onClick={signOut} className="header__exit">
+              <Link to={"/sign-in"} onClick={signOut} className="header__exit">
                 Выйти
               </Link>
             </nav>

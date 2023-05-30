@@ -21,6 +21,8 @@ app.use(
     origin: [
       'http://localhost:3000',
       'https://localhost:3000',
+      'http://localhost:3001',
+      'https://localhost:3001',
       'http://endjoys.project.nomoredomains.rocks',
       'https://endjoys.project.nomoredomains.rocks',
     ],

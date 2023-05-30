@@ -101,7 +101,6 @@ function App() {
             //   email: res.data.email,
             // };
             setLoggedIn(true);
-            console.log(res.email);
             setUserData(res.email);
           }
         })
@@ -111,17 +110,17 @@ function App() {
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
         });
-    }
 
-    Promise.all([api.getInitialUser(), api.getInitialCards()])
-      .then((res) => {
-        const [userData, cardData] = res;
-        setCurrentUser(userData);
-        setCards(cardData);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      Promise.all([api.getInitialUser(), api.getInitialCards()])
+        .then((res) => {
+          const [userData, cardData] = res;
+          setCurrentUser(userData);
+          setCards(cardData);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
   }, [navigate]);
 
   // useEffect(() => {

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -19,8 +20,6 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
-      'https://localhost:3000',
       'http://localhost:3001',
       'https://localhost:3001',
       'http://endjoys.project.nomoredomains.rocks',

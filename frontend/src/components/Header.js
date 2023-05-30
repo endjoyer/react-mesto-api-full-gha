@@ -1,14 +1,14 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function Header({ userData }) {
+function Header({ userData, onSignOut }) {
   const { pathname } = useLocation();
   const isSignUpPage = pathname === "/sign-up";
   const isMainPage = pathname === "/";
 
-  const signOut = () => {
-    localStorage.removeItem("userId");
-  };
+  // const signOut = () => {
+  //   localStorage.removeItem("userId");
+  // };
 
   return (
     <>
@@ -21,9 +21,9 @@ function Header({ userData }) {
 
           <div className="hamburger__box">
             <p className="header__user-data">{userData.email}</p>
-            <Link to={"/sign-in"} onClick={signOut} className="header__exit">
+            <button onClick={onSignOut} className="header__exit">
               Выйти
-            </Link>
+            </button>
           </div>
         </div>
       )}
@@ -44,9 +44,9 @@ function Header({ userData }) {
           ) : (
             <nav className="header__nav">
               <p className="header__user-data">{userData.email}</p>
-              <Link to={"/sign-in"} onClick={signOut} className="header__exit">
+              <button onClick={onSignOut} className="header__exit">
                 Выйти
-              </Link>
+              </button>
             </nav>
           )}
         </div>

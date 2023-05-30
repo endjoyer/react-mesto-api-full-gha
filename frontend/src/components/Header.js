@@ -21,9 +21,9 @@ function Header({ userData, onSignOut }) {
 
           <div className="hamburger__box">
             <p className="header__user-data">{userData.email}</p>
-            <button onClick={onSignOut} className="header__exit">
+            <Link to={"/sign-in"} onClick={onSignOut} className="header__exit">
               Выйти
-            </button>
+            </Link>
           </div>
         </div>
       )}
@@ -44,9 +44,13 @@ function Header({ userData, onSignOut }) {
           ) : (
             <nav className="header__nav">
               <p className="header__user-data">{userData.email}</p>
-              <button onClick={onSignOut} className="header__exit">
+              <Link
+                to={"/sign-in"}
+                onClick={onSignOut}
+                className="header__exit"
+              >
                 Выйти
-              </button>
+              </Link>
             </nav>
           )}
         </div>

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import Popup from './Popup';
-import PopupWithForm from './PopupWithForm';
-import { useForm } from 'react-hook-form';
+import React, { useEffect } from "react";
+import Popup from "./Popup";
+import PopupWithForm from "./PopupWithForm";
+import { useForm } from "react-hook-form";
 
 const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isLoading }) => {
   const {
@@ -9,19 +9,19 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isLoading }) => {
     formState: { errors, isValid },
     getValues,
     reset,
-  } = useForm({ mode: 'onChange', criteriaMode: 'all' });
+  } = useForm({ mode: "onChange", criteriaMode: "all" });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     onUpdateAvatar({
-      avatar: getValues('avatar'),
+      avatar: getValues("avatar"),
     });
   };
 
   useEffect(() => {
     reset();
-  }, [isOpen]);
+  }, [reset]);
 
   return (
     <Popup isOpen={isOpen} onClose={onClose}>
@@ -40,14 +40,14 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isLoading }) => {
             className="popup__input"
             type="url"
             placeholder="Ссылка на изображение"
-            {...register('avatar', {
-              required: 'Заполните это поле.',
-              validate: (v) => v.includes('http'),
+            {...register("avatar", {
+              required: "Заполните это поле.",
+              validate: (v) => v.includes("http"),
             })}
           />
           <span className="popup__input-error popup__input-error_active">
             {errors?.avatar &&
-              (errors?.avatar?.message || 'Введите ссылку на изображение.')}
+              (errors?.avatar?.message || "Введите ссылку на изображение.")}
           </span>
         </label>
       </PopupWithForm>

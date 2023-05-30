@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import Popup from './Popup';
-import PopupWithForm from './PopupWithForm';
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import Popup from "./Popup";
+import PopupWithForm from "./PopupWithForm";
 
 const AddPlacePopup = ({ isOpen, onClose, onAddPlace, isLoading }) => {
   const {
@@ -10,20 +10,20 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace, isLoading }) => {
     getValues,
     reset,
   } = useForm({
-    mode: 'onChange',
-    criteriaMode: 'all',
+    mode: "onChange",
+    criteriaMode: "all",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const name = getValues('name');
-    const link = getValues('link');
+    const name = getValues("name");
+    const link = getValues("link");
     onAddPlace({ name, link });
   };
 
   useEffect(() => {
     reset();
-  }, [isOpen]);
+  }, [reset]);
 
   return (
     <Popup isOpen={isOpen} onClose={onClose}>
@@ -42,15 +42,15 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace, isLoading }) => {
             className="popup__input"
             type="text"
             placeholder="Название"
-            {...register('name', {
-              required: 'Заполните это поле.',
+            {...register("name", {
+              required: "Заполните это поле.",
               minLength: {
                 value: 2,
-                message: 'Минимум 2 символа.',
+                message: "Минимум 2 символа.",
               },
               maxLength: {
                 value: 40,
-                message: 'Максимум 40 символов.',
+                message: "Максимум 40 символов.",
               },
             })}
           />
@@ -63,14 +63,14 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace, isLoading }) => {
             className="popup__input"
             type="url"
             placeholder="Ссылка на картинку"
-            {...register('link', {
-              required: 'Заполните это поле.',
-              validate: (v) => v.includes('http'),
+            {...register("link", {
+              required: "Заполните это поле.",
+              validate: (v) => v.includes("http"),
             })}
           />
           <span className="popup__input-error popup__input-error_active">
             {errors?.link &&
-              (errors?.link?.message || 'Введите ссылку на изображение.')}
+              (errors?.link?.message || "Введите ссылку на изображение.")}
           </span>
         </label>
       </PopupWithForm>

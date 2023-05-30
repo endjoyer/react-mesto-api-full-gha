@@ -42,7 +42,7 @@ function App() {
   const location = useLocation();
 
   const shouldRenderFooter =
-    location.pathname !== "/sign-up" && location.pathname !== "/sign-in";
+    location.pathname !== "/signup" && location.pathname !== "/signin";
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -201,7 +201,7 @@ function App() {
       .register(data.password, data.email)
       .then((res) => {
         if (res.data) {
-          navigate("/sign-in", {
+          navigate("/signin", {
             replace: true,
           });
           setIsRegisterOkPopupOpened(true);
@@ -260,7 +260,7 @@ function App() {
               loggedIn ? (
                 <Navigate to="/" replace />
               ) : (
-                <Navigate to="/sign-in" replace />
+                <Navigate to="/signin" replace />
               )
             }
           />
@@ -283,11 +283,11 @@ function App() {
             }
           />
           <Route
-            path="/sign-up"
+            path="/signup"
             element={<Register onRegister={handleRegister} />}
           />
           <Route
-            path="/sign-in"
+            path="/signin"
             element={<Login onAuthorization={handleAuthorization} />}
           />
         </Routes>

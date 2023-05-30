@@ -103,11 +103,12 @@ function App() {
             setLoggedIn(true);
             console.log(res.email);
             setUserData(res.email);
-            navigate("/", { replace: true });
           }
         })
+        .then(() => {
+          navigate("/", { replace: true });
+        })
         .catch((err) => {
-          localStorage.removeItem("userId");
           console.log(`Ошибка: ${err}`);
         });
     }
@@ -212,6 +213,13 @@ function App() {
       });
   }
 
+  function handleSignOut() {
+    localStorage.clear("userId");
+    auth.getLogoutUser();
+    setLoggedIn(false);
+    navigate("/signin", { replace: true });
+  }
+
   // useEffect(() => {
   //   handleTokenCheck();
   // }, []);
@@ -244,7 +252,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header userData={userData} />
+        <Header userData={userData} onSignOut={handleSignOut} />
         <Routes>
           <Route
             path="/"

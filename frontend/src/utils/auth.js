@@ -49,3 +49,11 @@ export const checkToken = async (token) => {
   });
   return requestResult(res);
 };
+
+export const getLogoutUser = async () => {
+  const res = await fetch(`${BASE_URL}/signout`, {
+    method: "GET",
+    credentials: "include",
+  });
+  return requestResult(res);
+};

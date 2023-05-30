@@ -1,4 +1,5 @@
 export const BASE_URL = "https://api.endjoys.project.nomoredomains.rocks";
+// export const BASE_URL = "http://localhost:3000";
 
 function requestResult(res) {
   if (res.ok) {
@@ -31,7 +32,7 @@ export const authorize = async (password, email) => {
 
   return requestResult(res).then((data) => {
     if (data) {
-      localStorage.setItem("jwt", data.token);
+      localStorage.setItem("userId", data._id);
       return data;
     }
   });
@@ -41,9 +42,8 @@ export const checkToken = async (token) => {
   const res = await fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      // Accept: "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
     credentials: "include",
   });

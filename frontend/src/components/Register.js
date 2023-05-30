@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PopupWithForm from './PopupWithForm';
-import { useForm } from 'react-hook-form';
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import PopupWithForm from "./PopupWithForm";
+import { useForm } from "react-hook-form";
 
 const Register = ({ onRegister }) => {
   const {
@@ -10,8 +10,8 @@ const Register = ({ onRegister }) => {
     reset,
     handleSubmit,
   } = useForm({
-    mode: 'onChange',
-    criteriaMode: 'all',
+    mode: "onChange",
+    criteriaMode: "all",
   });
 
   const onSubmit = (data) => {
@@ -20,7 +20,7 @@ const Register = ({ onRegister }) => {
 
   useEffect(() => {
     reset();
-  }, []);
+  }, [reset]);
 
   return (
     <div className="auth">
@@ -37,15 +37,15 @@ const Register = ({ onRegister }) => {
             name="email"
             placeholder="Email"
             type="email"
-            {...register('email', {
-              required: 'Заполните это поле.',
+            {...register("email", {
+              required: "Заполните это поле.",
               minLength: {
                 value: 5,
-                message: 'Минимум 5 символов.',
+                message: "Минимум 5 символов.",
               },
               maxLength: {
                 value: 40,
-                message: 'Максимум 40 символов.',
+                message: "Максимум 40 символов.",
               },
             })}
           />
@@ -59,15 +59,15 @@ const Register = ({ onRegister }) => {
             name="password"
             placeholder="Пароль"
             type="password"
-            {...register('password', {
-              required: 'Заполните это поле.',
+            {...register("password", {
+              required: "Заполните это поле.",
               minLength: {
                 value: 8,
-                message: 'Минимум 8 символов.',
+                message: "Минимум 8 символов.",
               },
               maxLength: {
                 value: 40,
-                message: 'Максимум 40 символов.',
+                message: "Максимум 40 символов.",
               },
             })}
           />

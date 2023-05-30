@@ -97,22 +97,23 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res) {
-            const userData = {
-              email: res.data.email,
-            };
+            // const userData = {
+            //   email: res.data.email,
+            // };
             setLoggedIn(true);
-            setUserData(userData);
+            console.log(res.email);
+            setUserData(res.email);
             navigate("/", { replace: true });
           }
         })
         .catch((err) => {
+          localStorage.removeItem("userId");
           console.log(`Ошибка: ${err}`);
         });
     }
 
     Promise.all([api.getInitialUser(), api.getInitialCards()])
       .then((res) => {
-        console.log(res);
         const [userData, cardData] = res;
         setCurrentUser(userData);
         setCards(cardData);
@@ -216,10 +217,10 @@ function App() {
   // }, []);
 
   // const handleTokenCheck = () => {
-  //   if (localStorage.getItem("jwt")) {
-  //     const jwt = localStorage.getItem("jwt");
+  //   if (localStorage.getItem("userId")) {
+  //     const userId = localStorage.getItem("userId");
   //     auth
-  //       .checkToken(jwt)
+  //       .checkToken(userId)
   //       .then((res) => {
   //         if (res) {
   //           const userData = {

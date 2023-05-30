@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import PopupWithForm from './PopupWithForm';
-import { useForm } from 'react-hook-form';
+import { useEffect } from "react";
+import PopupWithForm from "./PopupWithForm";
+import { useForm } from "react-hook-form";
 
 const Login = ({ onAuthorization }) => {
   const {
@@ -8,16 +8,16 @@ const Login = ({ onAuthorization }) => {
     formState: { errors, isValid },
     getValues,
     reset,
-  } = useForm({ mode: 'onChange', criteriaMode: 'all' });
+  } = useForm({ mode: "onChange", criteriaMode: "all" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onAuthorization(getValues('password'), getValues('email'));
+    onAuthorization(getValues("password"), getValues("email"));
   };
   useEffect(() => {
     reset();
-  }, []);
+  }, [reset]);
 
   return (
     <div className="auth">
@@ -34,15 +34,15 @@ const Login = ({ onAuthorization }) => {
             placeholder="Email"
             name="email"
             type="email"
-            {...register('email', {
-              required: 'Заполните это поле.',
+            {...register("email", {
+              required: "Заполните это поле.",
               minLength: {
                 value: 5,
-                message: 'Минимум 5 символов.',
+                message: "Минимум 5 символов.",
               },
               maxLength: {
                 value: 40,
-                message: 'Максимум 40 символов.',
+                message: "Максимум 40 символов.",
               },
             })}
           />
@@ -56,15 +56,15 @@ const Login = ({ onAuthorization }) => {
             name="password"
             placeholder="Пароль"
             type="password"
-            {...register('password', {
-              required: 'Заполните это поле.',
+            {...register("password", {
+              required: "Заполните это поле.",
               minLength: {
                 value: 8,
-                message: 'Минимум 8 символов.',
+                message: "Минимум 8 символов.",
               },
               maxLength: {
                 value: 40,
-                message: 'Максимум 40 символов.',
+                message: "Максимум 40 символов.",
               },
             })}
           />

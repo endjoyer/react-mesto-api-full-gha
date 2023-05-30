@@ -136,7 +136,7 @@ module.exports.login = (req, res, next) => {
         }
         const token = jwt.sign(
           { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'secretKey',
+          NODE_ENV === 'production' ? JWT_SECRET : secretKey,
           { expiresIn: '7d' },
         );
         res.cookie('jwt', token, {
@@ -144,16 +144,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
-        return res.send({
-          token,
-          user: {
-            _id: user._id,
-            name: user.name,
-            about: user.about,
-            avatar: user.avatar,
-            email: user.email,
-          },
-        }); // возможно ошибка и должно быть {token}
+        return res.send(user.toJSON()); // возможно ошибка и должно быть {token, user}
       });
     })
     .catch(next);

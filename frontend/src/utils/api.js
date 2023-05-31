@@ -76,20 +76,18 @@ class Api {
   }
 
   async changeLikeCardStatus(cardId, isLiked) {
-    if (isLiked) {
-      const res = await fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-        method: isLiked ? "PUT" : "DELETE",
-        headers: this._headers,
-        credentials: "include",
-      });
-      return this._requestResult(res);
-    }
+    const res = await fetch(`${this._baseUrl}cards/${cardId}/likes`, {
+      method: isLiked ? "DELETE" : "PUT",
+      headers: this._headers,
+      credentials: "include",
+    });
+    return this._requestResult(res);
   }
 }
 
 export const api = new Api({
-  serverUrl: "https://api.endjoys.project.nomoredomains.rocks/",
-  // serverUrl: "http://localhost:3000/",
+  // serverUrl: "https://api.endjoys.project.nomoredomains.rocks/",
+  serverUrl: "http://localhost:3000/",
   headers: {
     "Content-Type": "application/json",
   },

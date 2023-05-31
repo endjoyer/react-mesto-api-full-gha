@@ -41,9 +41,6 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const shouldRenderFooter =
-    location.pathname !== "/signup" && location.pathname !== "/signin";
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -64,11 +61,13 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
+        // console.log(`changeLikeCardStatus card._id: ${card._id}`);
+        // console.log(`changeLikeCardStatus card._id: ${cards}`);
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
@@ -91,17 +90,18 @@ function App() {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("userId");
-    if (token) {
+    const userId = localStorage.getItem("userId");
+    console.log(userId);
+    if (userId) {
       auth
-        .checkToken(token)
+        .checkToken(userId)
         .then((res) => {
           if (res) {
             // const userData = {
             //   email: res.data.email,
             // };
             setLoggedIn(true);
-            setUserData(res.email);
+            setUserData(res);
           }
         })
         .then(() => {
@@ -113,12 +113,13 @@ function App() {
 
       Promise.all([api.getInitialUser(), api.getInitialCards()])
         .then((res) => {
+          console.log(res);
           const [userData, cardData] = res;
           setCurrentUser(userData);
           setCards(cardData);
         })
         .catch((err) => {
-          console.log(`Ошибка: ${err}`);
+          console.log(err);
         });
     }
   }, [navigate]);
@@ -184,8 +185,9 @@ function App() {
   function handleAuthorization(password, email) {
     auth
       .authorize(password, email)
-      .then((data) => {
-        if (data.token) {
+      .then((user) => {
+        console.log(user._id);
+        if (user._id) {
           handleLogin();
           navigate("/", { replace: true });
         }
@@ -199,7 +201,7 @@ function App() {
     auth
       .register(data.password, data.email)
       .then((res) => {
-        if (res.data) {
+        if (res) {
           navigate("/signin", {
             replace: true,
           });
@@ -247,13 +249,13 @@ function App() {
   const handleLogin = () => {
     setLoggedIn(true);
   };
-
+  console.log(loggedIn);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header userData={userData} onSignOut={handleSignOut} />
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={
               loggedIn ? (
@@ -262,7 +264,7 @@ function App() {
                 <Navigate to="/signin" replace />
               )
             }
-          />
+          /> */}
           <Route
             path="/"
             element={
@@ -281,6 +283,7 @@ function App() {
               />
             }
           />
+
           <Route
             path="/signup"
             element={<Register onRegister={handleRegister} />}
@@ -289,8 +292,12 @@ function App() {
             path="/signin"
             element={<Login onAuthorization={handleAuthorization} />}
           />
+
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-        {shouldRenderFooter && <Footer />}
+
+        {loggedIn && <Footer />}
+
         <EditProfilePopup
           isLoading={isLoading}
           isOpen={isEditProfilePopupOpen}

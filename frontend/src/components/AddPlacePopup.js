@@ -23,7 +23,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace, isLoading }) => {
 
   useEffect(() => {
     reset();
-  }, [reset]);
+  }, [isOpen]);
 
   return (
     <Popup isOpen={isOpen} onClose={onClose}>

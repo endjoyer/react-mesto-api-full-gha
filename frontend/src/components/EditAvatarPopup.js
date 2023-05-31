@@ -21,7 +21,7 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isLoading }) => {
 
   useEffect(() => {
     reset();
-  }, [reset]);
+  }, [isOpen]);
 
   return (
     <Popup isOpen={isOpen} onClose={onClose}>

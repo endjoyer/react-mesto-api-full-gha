@@ -1,10 +1,12 @@
-import { useContext } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useContext } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card({ card, onCardLike, onCardClick, onCardDelete }) {
   const { _id: currentUserId } = useContext(CurrentUserContext);
-  const isLiked = card.likes.some((user) => user._id === currentUserId);
-  const isOwn = card.owner._id === currentUserId;
+  const isLiked = card.likes.some((user) => user === currentUserId);
+  const isOwn = card.owner === currentUserId;
+  // console.log(`currentUserId :${currentUserId}`);
+  // console.log(`isLiked :${card.likes}`);
 
   function handleCardClick() {
     onCardClick(card);
@@ -39,7 +41,7 @@ function Card({ card, onCardLike, onCardClick, onCardDelete }) {
         <h2 className="element__name">{card.name}</h2>
         <div className="element__like-container">
           <button
-            className={`element__like ${isLiked ? 'element__like_active' : ''}`}
+            className={`element__like ${isLiked ? "element__like_active" : ""}`}
             onClick={handleLikeClick}
             aria-label="Поставить лайк"
             type="button"

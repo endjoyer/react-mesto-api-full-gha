@@ -144,7 +144,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
-        return res.send({ token, user }); // возможно ошибка и должно быть {user.toJSON()}
+        return res.send(user.toJSON()); // возможно ошибка и должно быть { token, user }
       });
     })
     .catch(next);

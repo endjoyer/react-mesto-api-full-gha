@@ -1,17 +1,18 @@
-import Popup from './Popup';
+import Popup from "./Popup";
 
 function RegisterPopup({ onClose, isOpenOk, isOpenError }) {
   const isOpen = isOpenOk || isOpenError;
-  const regImgClass = isOpenError ? 'popup__reg-img_error' : '';
+  const regImgClass = isOpenError ? "popup__reg-img_error" : "";
   const regText = isOpenOk
-    ? 'Вы успешно зарегистрировались!'
-    : 'Что-то пошло не так! Попробуйте ещё раз.';
-
+    ? "Вы успешно зарегистрировались!"
+    : "Что-то пошло не так! Попробуйте ещё раз.";
+  console.log(`ok: ${isOpenOk}`);
+  console.log(`err: ${isOpenError}`);
   return (
     <Popup isOpen={isOpen} onClose={onClose} name="registerPopup">
       <div className="popup__container">
         <button
-          className={'popup__close'}
+          className={"popup__close"}
           aria-label="Закрыть"
           type="button"
           onClick={onClose}

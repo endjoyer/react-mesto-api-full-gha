@@ -21,7 +21,6 @@ app.use(
   cors({
     origin: [
       'http://localhost:3001',
-      'https://localhost:3001',
       'http://endjoys.project.nomoredomains.rocks',
       'https://endjoys.project.nomoredomains.rocks',
     ],

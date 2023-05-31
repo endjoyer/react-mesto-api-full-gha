@@ -3,7 +3,7 @@ const { NotFoundError, ForbiddenError, BadRequestError } = require('../errors');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send(cards))
+    .then((cards) => res.send(cards.reverse()))
     .catch(next);
 };
 

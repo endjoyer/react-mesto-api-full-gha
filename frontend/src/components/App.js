@@ -25,12 +25,15 @@ function App() {
     [cardToDelete, setCardToDelete] = useState(null),
     [selectedCard, setSelectedCard] = useState({}),
     [currentUser, setCurrentUser] = useState(""),
-    [cards, setCards] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [isRegisterOkPopupOpened, setIsRegisterOkPopupOpened] = useState(false);
-  const [isRegisterErrorPopupOpened, setIsRegisterErrorPopupOpened] =
-    useState(false);
-  const [userData, setUserData] = useState({});
+    [cards, setCards] = useState([]),
+    [loggedIn, setLoggedIn] = useState(false),
+    [isRegisterOkPopupOpened, setIsRegisterOkPopupOpened] = useState(false),
+    [isRegisterErrorPopupOpened, setIsRegisterErrorPopupOpened] =
+      useState(false),
+    [userData, setUserData] = useState({}),
+    [regText, setRegText] = useState(
+      "Что-то пошло не так! Попробуйте ещё раз."
+    );
 
   const navigate = useNavigate();
 
@@ -157,30 +160,31 @@ function App() {
       });
   }
 
-  function handleAuthorization(password, email) {
-    auth
-      .authorize(password, email)
-      .then((user) => {
-        console.log(user._id);
-        if (user._id) {
-          setLoggedIn(true);
-          navigate("/", { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-  }
-
   function handleRegister(data) {
     auth
       .register(data.password, data.email)
       .then((res) => {
         if (res) {
+          setRegText("Вы успешно зарегистрировались!");
           navigate("/signin", {
             replace: true,
           });
           setIsRegisterOkPopupOpened(true);
+        }
+      })
+      .catch((err) => {
+        setIsRegisterErrorPopupOpened(true);
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  function handleAuthorization(password, email) {
+    auth
+      .authorize(password, email)
+      .then((user) => {
+        if (user._id) {
+          setLoggedIn(true);
+          navigate("/", { replace: true });
         }
       })
       .catch((err) => {
@@ -261,6 +265,7 @@ function App() {
         <RegisterPopup
           isOpenOk={isRegisterOkPopupOpened}
           isOpenError={isRegisterErrorPopupOpened}
+          regText={regText}
           onClose={closeAllPopups}
         />
       </div>

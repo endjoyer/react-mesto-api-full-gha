@@ -1,11 +1,9 @@
 import Popup from "./Popup";
 
-function RegisterPopup({ onClose, isOpenOk, isOpenError }) {
+function RegisterPopup({ onClose, isOpenOk, isOpenError, regText }) {
   const isOpen = isOpenOk || isOpenError;
   const regImgClass = isOpenError ? "popup__reg-img_error" : "";
-  const regText = isOpenOk
-    ? "Вы успешно зарегистрировались!"
-    : "Что-то пошло не так! Попробуйте ещё раз.";
+
   return (
     <Popup isOpen={isOpen} onClose={onClose} name="registerPopup">
       <div className="popup__container">

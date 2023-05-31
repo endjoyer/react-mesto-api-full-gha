@@ -31,7 +31,6 @@ export const authorize = async (password, email) => {
 
   return requestResult(res).then((data) => {
     if (data) {
-      console.log(data);
       localStorage.setItem("userId", data._id);
       return data;
     }

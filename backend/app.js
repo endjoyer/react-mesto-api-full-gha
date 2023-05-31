@@ -13,8 +13,10 @@ const { NotFoundError } = require('./errors/index');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } =
+  process.env;
 const app = express();
+const limiter = rateLimit(limiterSettings);
 
 app.use(
   cors({
@@ -28,18 +30,17 @@ app.use(
   }),
 );
 
-const limiter = rateLimit(limiterSettings);
-
-app.use(limiter);
 app.use(helmet());
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
+mongoose.connect(DB_URL);
 
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.use(routesUsers);
 app.use(routesCards);

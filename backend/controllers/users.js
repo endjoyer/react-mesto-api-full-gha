@@ -59,7 +59,7 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       const userObj = user.toObject();
       delete userObj.password;
-      res.send(userObj);
+      return res.status(201).send(userObj);
     })
     .catch((err) => {
       if (err.code === 11000) {
@@ -73,6 +73,40 @@ module.exports.createUser = (req, res, next) => {
 
       return next(err);
     });
+};
+
+module.exports.login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email })
+    .select('+password')
+    .then((user) => {
+      if (!user) {
+        return next(new UnauthorizedError('Incorrect email or password'));
+      }
+
+      return bcrypt.compare(password, user.password).then((matched) => {
+        if (!matched) {
+          return next(new UnauthorizedError('Incorrect email or password'));
+        }
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : secretKey,
+          { expiresIn: '7d' },
+        );
+        res.cookie('jwt', token, {
+          maxAge: 3600000 * 24 * 7,
+          httpOnly: true,
+          sameSite: true,
+        });
+        return res.send(user.toJSON());
+      });
+    })
+    .catch(next);
+};
+
+module.exports.exit = (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Exit' });
 };
 
 module.exports.patchUserProfile = (req, res, next) => {
@@ -117,38 +151,4 @@ module.exports.patchUserAvatar = (req, res, next) => {
 
       return next(err);
     });
-};
-
-module.exports.login = (req, res, next) => {
-  const { email, password } = req.body;
-
-  User.findOne({ email })
-    .select('+password')
-    .then((user) => {
-      if (!user) {
-        return next(new UnauthorizedError('Incorrect email or password'));
-      }
-
-      return bcrypt.compare(password, user.password).then((matched) => {
-        if (!matched) {
-          return next(new UnauthorizedError('Incorrect email or password'));
-        }
-        const token = jwt.sign(
-          { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : secretKey,
-          { expiresIn: '7d' },
-        );
-        res.cookie('jwt', token, {
-          maxAge: 3600000 * 24 * 7,
-          httpOnly: true,
-          sameSite: true,
-        });
-        return res.send(user.toJSON());
-      });
-    })
-    .catch(next);
-};
-
-module.exports.exit = (req, res) => {
-  res.clearCookie('jwt').send({ message: 'Exit' });
 };

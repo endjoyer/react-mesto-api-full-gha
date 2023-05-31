@@ -5,11 +5,6 @@ function Header({ userData, onSignOut }) {
   const { pathname } = useLocation();
   const isSignUpPage = pathname === "/signup";
   const isMainPage = pathname === "/";
-  console.log(userData);
-
-  // const signOut = () => {
-  //   localStorage.removeItem("userId");
-  // };
 
   return (
     <>

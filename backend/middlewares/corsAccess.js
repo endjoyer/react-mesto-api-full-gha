@@ -1,21 +1,13 @@
-const allowedCors = [
-  'https://endjoys.project.nomoredomains.rocks',
-  'http://endjoys.project.nomoredomains.rocks',
-  'localhost:3000',
-];
+const cors = require('cors');
 
-module.exports.corsAccess = (req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-  }
-
-  return next();
+module.exports = () => {
+  cors({
+    origin: [
+      'http://localhost:3001',
+      'http://endjoys.project.nomoredomains.rocks',
+      'https://endjoys.project.nomoredomains.rocks',
+    ],
+    credentials: true,
+    maxAge: 60,
+  });
 };

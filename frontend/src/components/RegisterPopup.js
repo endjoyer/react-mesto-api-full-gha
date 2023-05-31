@@ -6,8 +6,6 @@ function RegisterPopup({ onClose, isOpenOk, isOpenError }) {
   const regText = isOpenOk
     ? "Вы успешно зарегистрировались!"
     : "Что-то пошло не так! Попробуйте ещё раз.";
-  console.log(`ok: ${isOpenOk}`);
-  console.log(`err: ${isOpenError}`);
   return (
     <Popup isOpen={isOpen} onClose={onClose} name="registerPopup">
       <div className="popup__container">

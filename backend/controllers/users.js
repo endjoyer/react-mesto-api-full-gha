@@ -2,7 +2,6 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-
 const secretKey = require('../utils/secretKey');
 
 const {
@@ -144,7 +143,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
-        return res.send(user.toJSON()); // возможно ошибка и должно быть { token, user }
+        return res.send(user.toJSON());
       });
     })
     .catch(next);

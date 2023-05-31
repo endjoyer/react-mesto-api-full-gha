@@ -1,6 +1,6 @@
 class Api {
   constructor(data) {
-    this._baseUrl = data.serverUrl;
+    this._baseUrl = data.baseUrl;
     this._headers = data.headers;
   }
 
@@ -86,8 +86,7 @@ class Api {
 }
 
 export const api = new Api({
-  // serverUrl: "https://api.endjoys.project.nomoredomains.rocks/",
-  serverUrl: "http://localhost:3000/",
+  baseUrl: "https://api.endjoys.project.nomoredomains.rocks/",
   headers: {
     "Content-Type": "application/json",
   },

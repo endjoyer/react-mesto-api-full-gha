@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import {
-  useLocation,
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import * as auth from "../utils/auth.js";
 import ProtectedRouteElement from "./ProtectedRoute.js";
 import Login from "./Login.js";
@@ -39,7 +33,6 @@ function App() {
   const [userData, setUserData] = useState({});
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -66,8 +59,6 @@ function App() {
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-        // console.log(`changeLikeCardStatus card._id: ${card._id}`);
-        // console.log(`changeLikeCardStatus card._id: ${cards}`);
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
@@ -91,15 +82,11 @@ function App() {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    console.log(userId);
     if (userId) {
       auth
         .checkToken(userId)
         .then((res) => {
           if (res) {
-            // const userData = {
-            //   email: res.data.email,
-            // };
             setLoggedIn(true);
             setUserData(res);
           }
@@ -113,7 +100,6 @@ function App() {
 
       Promise.all([api.getInitialUser(), api.getInitialCards()])
         .then((res) => {
-          console.log(res);
           const [userData, cardData] = res;
           setCurrentUser(userData);
           setCards(cardData);
@@ -123,17 +109,6 @@ function App() {
         });
     }
   }, [navigate]);
-
-  // useEffect(() => {
-  //   Promise.all([api.getInitialUser(), api.getInitialCards()])
-  //     .then(([userData, cardData]) => {
-  //       setCurrentUser(userData);
-  //       setCards(cardData);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Ошибка: ${err}`);
-  //     });
-  // }, []);
 
   function handleUpdateUser(data) {
     setIsLoading(true);
@@ -188,7 +163,7 @@ function App() {
       .then((user) => {
         console.log(user._id);
         if (user._id) {
-          handleLogin();
+          setLoggedIn(true);
           navigate("/", { replace: true });
         }
       })
@@ -221,50 +196,11 @@ function App() {
     navigate("/signin", { replace: true });
   }
 
-  // useEffect(() => {
-  //   handleTokenCheck();
-  // }, []);
-
-  // const handleTokenCheck = () => {
-  //   if (localStorage.getItem("userId")) {
-  //     const userId = localStorage.getItem("userId");
-  //     auth
-  //       .checkToken(userId)
-  //       .then((res) => {
-  //         if (res) {
-  //           const userData = {
-  //             email: res.data.email,
-  //           };
-  //           setLoggedIn(true);
-  //           setUserData(userData);
-  //           navigate("/", { replace: true });
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(`Ошибка: ${err}`);
-  //       });
-  //   }
-  // };
-
-  const handleLogin = () => {
-    setLoggedIn(true);
-  };
-  console.log(loggedIn);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header userData={userData} onSignOut={handleSignOut} />
         <Routes>
-          {/* <Route
-            path="/"
-            element={
-              loggedIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Navigate to="/signin" replace />
-              )
-            }
-          /> */}
           <Route
             path="/"
             element={
@@ -283,7 +219,6 @@ function App() {
               />
             }
           />
-
           <Route
             path="/signup"
             element={<Register onRegister={handleRegister} />}
@@ -292,12 +227,9 @@ function App() {
             path="/signin"
             element={<Login onAuthorization={handleAuthorization} />}
           />
-
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-
         {loggedIn && <Footer />}
-
         <EditProfilePopup
           isLoading={isLoading}
           isOpen={isEditProfilePopupOpen}

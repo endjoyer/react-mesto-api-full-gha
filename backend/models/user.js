@@ -13,7 +13,7 @@ const userSchema = new Schema({
   about: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 200,
     default: 'Исследователь',
   },
   avatar: {

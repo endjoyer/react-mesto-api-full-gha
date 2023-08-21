@@ -72,7 +72,7 @@ https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-RU?node-id=0%3A1
 <div align="right">(<a href="#summary">к оглавлению</a>)</div>
 
 <a name="installation"><h2>3. Установка и запуск приложения в локальном репозитории, эксплуатация</h2></a>
-1. `git clone https://github.com/elrouss/react-mesto-api-full-gha.git` - клонировать репозиторий (HTTPS) на свое устройство
+1. `git clone https://github.com/endjoyer/react-mesto-api-full-gha` - клонировать репозиторий (HTTPS) на свое устройство
 2. `npm i` - установить зависимости (отдельно - в папке `frontend` и `backend`)
 3. `npm run dev` - запустить приложение в режиме разработчика в папке `backend`
 4. `npm run start` - запустить приложение в режиме разработчика в папке `frontend`

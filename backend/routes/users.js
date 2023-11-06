@@ -17,33 +17,33 @@ const {
 } = require('../middlewares/celebrate');
 const { validateAuth } = require('../middlewares/validateAuth');
 
-router.get('/users', validateAuth, getUsers);
+router.get('/api/v1/users', validateAuth, getUsers);
 
-router.get('/users/me', validateAuth, getUserInfo);
+router.get('/api/v1/users/me', validateAuth, getUserInfo);
 
-router.get('/users/:id', validateAuth, validateUserInfo, getUserInfo);
+router.get('/api/v1/users/:id', validateAuth, validateUserInfo, getUserInfo);
 
-router.post('/signup', validateCreateUser, createUser);
+router.post('/api/v1/signup', validateCreateUser, createUser);
 
-router.post('/signin', validateLogin, login);
+router.post('/api/v1/signin', validateLogin, login);
 
-router.get('/signout', validateAuth, exit);
+router.get('/api/v1/signout', validateAuth, exit);
 
-router.get('/crash-test', () => {
+router.get('/api/v1/crash-test', () => {
   setTimeout(() => {
     throw new Error('The server is about to crash');
   }, 0);
 });
 
 router.patch(
-  '/users/me',
+  '/api/v1/users/me',
   validateAuth,
   validatePatchUserProfile,
   patchUserProfile,
 );
 
 router.patch(
-  '/users/me/avatar',
+  '/api/v1/users/me/avatar',
   validateAuth,
   validatePatchUserAvatar,
   patchUserAvatar,

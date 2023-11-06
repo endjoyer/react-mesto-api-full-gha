@@ -1,3 +1,4 @@
+import { BASE_URL } from './auth';
 class Api {
   constructor(data) {
     this._baseUrl = data.baseUrl;
@@ -15,7 +16,7 @@ class Api {
   async getInitialCards() {
     const res = await fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
     });
     return this._requestResult(res);
   }
@@ -23,16 +24,16 @@ class Api {
   async getInitialUser() {
     const res = await fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
     });
     return this._requestResult(res);
   }
 
   async editUser(data) {
     const res = await fetch(`${this._baseUrl}users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -43,9 +44,9 @@ class Api {
 
   async editUserAvatar(data) {
     const res = await fetch(`${this._baseUrl}users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -55,9 +56,9 @@ class Api {
 
   async postCard(data) {
     const res = await fetch(`${this._baseUrl}cards`, {
-      method: "POST",
+      method: 'POST',
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -68,26 +69,26 @@ class Api {
 
   async deleteCard(cardId) {
     const res = await fetch(`${this._baseUrl}cards/${cardId}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
     });
     return this._requestResult(res);
   }
 
   async changeLikeCardStatus(cardId, isLiked) {
     const res = await fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-      method: isLiked ? "DELETE" : "PUT",
+      method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers,
-      credentials: "include",
+      credentials: 'include',
     });
     return this._requestResult(res);
   }
 }
 
 export const api = new Api({
-  baseUrl: "https://api.endjoys.project.nomoredomains.rocks/",
+  baseUrl: BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });

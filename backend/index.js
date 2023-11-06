@@ -13,8 +13,7 @@ const { NotFoundError } = require('./errors/index');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3001, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } =
-  process.env;
+const { PORT = 5000, DB_URL } = process.env;
 const app = express();
 const limiter = rateLimit(limiterSettings);
 
@@ -22,11 +21,8 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'http://localhost:3001',
-      'http://localhost:3002',
-      'http://localhost:3003',
-      'http://endjoys.project.nomoredomains.rocks',
-      'https://endjoys.project.nomoredomains.rocks',
+      'http://mesto-endjoyer.vercel.app',
+      'https://mesto-endjoyer.vercel.app',
     ],
     credentials: true,
     maxAge: 60,

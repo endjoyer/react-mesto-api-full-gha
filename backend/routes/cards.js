@@ -14,16 +14,26 @@ const {
 } = require('../controllers/cards');
 const { validateAuth } = require('../middlewares/validateAuth');
 
-router.get('/cards', validateAuth, getCards);
+router.get('/api/v1/cards', validateAuth, getCards);
 
-router.post('/cards', validateAuth, validateCreateCard, createCard);
-
-router.delete('/cards/:id', validateAuth, validateDeleteCard, deleteCardById);
-
-router.put('/cards/:cardId/likes', validateAuth, validateLikeCard, likeCard);
+router.post('/api/v1/cards', validateAuth, validateCreateCard, createCard);
 
 router.delete(
-  '/cards/:cardId/likes',
+  '/api/v1/cards/:id',
+  validateAuth,
+  validateDeleteCard,
+  deleteCardById,
+);
+
+router.put(
+  '/api/v1/cards/:cardId/likes',
+  validateAuth,
+  validateLikeCard,
+  likeCard,
+);
+
+router.delete(
+  '/api/v1/cards/:cardId/likes',
   validateAuth,
   validateDislikeCard,
   dislikeCard,

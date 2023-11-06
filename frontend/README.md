@@ -55,9 +55,3 @@ _- "Mesto" - это интерактивная страница, где поль
 ```console
     npm run start
 ```
-
-### Ссылка на сайт:
-
-https://endjoyer.github.io/react-mesto-auth/
-
-[Ссылка на макет в Figma](https://www.figma.com/file/4FJT7X9cDHiFOWEDAVb76R/JavaScript.-Sprint-12?t=wQXCzNg7G4uHn5NG-0)

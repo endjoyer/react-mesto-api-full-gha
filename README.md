@@ -40,11 +40,9 @@
 
 <b>Ссылки на проект:</b>
 <br>
-IP 51.250.95.139
+Frontend [https://mesto-endjoyer.vercel.app/](https://mesto-endjoyer.vercel.app/)
 <br>
-Frontend https://endjoys.project.nomoredomains.rocks
-<br>
-Backend https://api.endjoys.project.nomoredomains.rocks
+Backend [https://mesto-endjoyer-api.vercel.app/](https://mesto-endjoyer-api.vercel.app/)
 
 <b>Ссылки на макет:</b>
 <br>
